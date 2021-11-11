@@ -1,8 +1,8 @@
 #include <WiFi.h>
 #include "time.h"
 
-const char* ssid       = "SURFACEJORGE 2228";
-const char* password   = "p0@926G8";
+const char* ssid       = "SURFACEJORGE2228";
+const char* password   = "p0@926G8";//
 
 
 const char* ntpServer = "europe.pool.ntp.org";
@@ -11,14 +11,22 @@ const int   daylightOffset_sec = 3600;
 
 int displayOn = 0;
 
-void printLocalTime()
+String hora = "";
+
+String printLocalTime()
 {
   struct tm timeinfo;
+  String tiempo_actual = "";
+  
   if(!getLocalTime(&timeinfo)){
     Serial.println("Failed to obtain time");
-    return;
+    return "";
   }
-  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
+  tiempo_actual = String(timeinfo.tm_hour) + ":" +
+                  String(timeinfo.tm_min) + ":" +
+                  String(timeinfo.tm_sec) + "\n";
+                  
+  return tiempo_actual;
 }
 
 //ipconfig servidor
@@ -70,22 +78,25 @@ void loop()
 
               Serial.println(line);
               
-              if(line.equals("start")){
+              if(line.indexOf("start") != -1){
                 displayOn = 1;
                 Serial.println("true");
               }
-              else //if(line == "stop"){
+              else if(line.indexOf("stop") != -1){
                 displayOn = 0;
                 Serial.println("false");
-              //}
+              }
           
             
             }
 
-            if(displayOn == 1){
+            if(displayOn == 1){ 
+
+              hora = printLocalTime();
+
+              client.print(hora);
+              
               delay(1000);
-              printLocalTime();
-              //client.write(printLocalTime());
             }
         }
     }
