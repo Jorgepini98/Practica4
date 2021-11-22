@@ -18,8 +18,8 @@
 //   https://www.adafruit.com/product/4000
 //   - Adafruit AirLift Breakout -> https://www.adafruit.com/product/4201
 
-#define WIFI_SSID "OrangeWifi"
-#define WIFI_PASS "123456vNsELAJP"
+#define WIFI_SSID "RSense"
+#define WIFI_PASS ""
 
 // uncomment the following line if you are using airlift
 // #define USE_AIRLIFT
